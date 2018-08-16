@@ -1,0 +1,19 @@
+version: "3"
+services:
+    webserver:
+        image: nginx:alpine
+        container_name: project-webserver-php72
+        working_dir: /application
+        volumes:
+            - ../../application:/application
+            - ../../Docker/nginx/nginx-php.conf:/etc/nginx/conf.d/default.conf
+        ports:
+          - "8055:80"
+
+    php-fpm:
+        image: phpdockerio/php72-fpm:latest
+        container_name: my-project-php-fpm-php72
+        working_dir: /application
+        volumes:
+          - ../../application:/application
+          - ../../Docker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
